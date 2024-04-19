@@ -1,0 +1,30 @@
+pipeline {
+        agent any
+
+	stages {	
+		stage('Fetch Code') {
+				steps { 
+					git branch: 'main', url: 'https://github.com/707751/kundan-code.git'
+			}
+	     
+
+		}
+		stage('install apache') {
+				steps { 
+					sh 'sudo apt install apache2 -y'
+					sh 'sudo systemctl restart apache2'
+			}
+	     
+
+		}
+		stage('deploy application') {
+				steps { 
+					sh 'sudo cp -R * /var/www/html'
+			}
+	     
+
+		}
+
+	}
+
+}
