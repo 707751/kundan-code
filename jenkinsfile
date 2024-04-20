@@ -1,7 +1,11 @@
 pipeline {
         agent any
 
-	stages {	
+	stages {
+		stage('Fetch jenkinsfile') {
+				steps { 
+					git branch: 'main', url: 'https://github.com/707751/kundan-code.git'
+	
 		stage('Fetch Code') {
 				steps { 
 					git branch: 'main', url: 'https://github.com/707751/test-git.git'
