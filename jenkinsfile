@@ -1,34 +1,34 @@
 pipeline {
-        agent any
+    agent any
 
-	stages {
-		stage('Fetch jenkinsfile') {
-				steps { 
-					git branch: 'main', url: 'https://github.com/707751/kundan-code.git'
-	
-		stage('Fetch Code') {
-				steps { 
-					git branch: 'main', url: 'https://github.com/707751/test-git.git'
-			}
-	     
+    stages {
+        stage('Fetch Jenkinsfile') {
+            steps {
+                git branch: 'main', url: 'https://github.com/707751/kundan-code.git'
+            }
+        }
 
-		}
-		stage('install apache') {
-				steps { 
-					sh 'sudo apt install apache2 -y'
-					sh 'sudo systemctl restart apache2'
-			}
-	     
+        stage('Fetch Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/707751/test-git.git'
+            }
+        }
 
-		}
-		stage('deploy application') {
-				steps { 
-					sh 'sudo cp -R * /var/www/html'
-			}
-	     
+        stage('Install Apache') {
+            steps {
+                script {
+                    sh 'sudo apt install apache2 -y'
+                    sh 'sudo systemctl restart apache2'
+                }
+            }
+        }
 
-		}
-
-	}
-
+        stage('Deploy Application') {
+            steps {
+                script {
+                    sh 'sudo cp -R * /var/www/html'
+                }
+            }
+        }
+    }
 }
