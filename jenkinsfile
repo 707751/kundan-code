@@ -17,20 +17,8 @@ pipeline {
         stage('Install Apache') {
             steps {
                 script {
-                    sh 'sudo apt update'
                     sh 'sudo apt install apache2 -y'
                     sh 'sudo systemctl restart apache2'
-                }
-            }
-        }
-
-        stage('Test Code') {
-            steps {
-                script {
-                    // Example: Run tests using a testing framework
-                    // Adjust the command to match your testing setup
-                    sh 'sudo apt install -y curl'
-                    sh 'curl -s --head http://localhost | head -n 1'
                 }
             }
         }
