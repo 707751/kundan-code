@@ -10,14 +10,15 @@ pipeline {
 
         stage('Fetch Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/707751/test-git.git'
+                git branch: 'master', url: 'https://github.com/707751/test-git.git'
             }
         }
 
         stage('Install Apache') {
             steps {
                 script {
-                    sh 'sudo apt install apache2 -y'
+                    sh 'sudo apt-get update'
+                    sh 'sudo apt-get install apache2 -y'
                     sh 'sudo systemctl restart apache2'
                 }
             }
@@ -26,7 +27,9 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 script {
-                    sh 'sudo cp -R * /var/www/html'
+                    dir('test-git') {  // Ensure we are in the correct directory
+                        sh 'sudo cp -R * /var/www/html'
+                    }
                 }
             }
         }
